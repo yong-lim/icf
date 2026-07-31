@@ -241,6 +241,7 @@ exclude:
   - vendor/ruby/
   - Icon
   - docker-compose.yml
+  - .jj/
 
 # Default Markdown Engine
 # markdown: kramdown
