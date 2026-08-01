@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = "jekyll-theme-yat"
-  spec.version       = "1.10.0"
+  spec.version       = "1.12.0"
   spec.authors       = ["jeffreytse"]
   spec.email         = ["hello@jeffreytse.net"]
 
@@ -17,12 +17,13 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_development_dependency "bundler", ">= 1.6", "< 3.0"
-  spec.add_development_dependency 'rake', '~> 13.2', '>= 13.2.1'
+  spec.add_development_dependency "rake", ">= 12.0", "< 13.4"
 
   spec.add_runtime_dependency "jekyll", "> 3.5", "< 5.0"
-  spec.add_runtime_dependency "jekyll-feed", "~> 0.17"
-  spec.add_runtime_dependency "jekyll-seo-tag", "~> 2.8"
+  spec.add_runtime_dependency "jekyll-feed", "~> 0.17.0"
+  spec.add_runtime_dependency "jekyll-seo-tag", "~> 2.9"
   spec.add_runtime_dependency "jekyll-sitemap", "~> 1.4"
   spec.add_runtime_dependency "jekyll-paginate", "~> 1.1"
-  spec.add_runtime_dependency "jekyll-spaceship", "~> 0.10"
+  spec.add_runtime_dependency "jekyll-spaceship", "~> 0.10.2"
+  spec.add_runtime_dependency "jekyll-sass-converter", "~> 3.1"
 end

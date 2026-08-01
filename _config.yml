@@ -224,6 +224,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-paginate
   - jekyll-spaceship
+  - jekyll-sass-converter
 
 # Exclude
 exclude:
