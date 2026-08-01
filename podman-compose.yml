@@ -2,17 +2,17 @@
 services:
   jekyll:
     image: bretfisher/jekyll-serve
-    container_name: icfpp
+    container_name: icfpp22
     working_dir: /srv-jekyll
     volumes:
       - .:/srv-jekyll
     ports:
-      - '5750:5750'
-      - '35750:35750'
+      - '4202:4202'
+      - '34202:34202'
     command: |
       bundle exec jekyll serve
       --trace --force_polling
       --host 0.0.0.0
-      --port 5750
+      --port 4202
       --livereload
-      --livereload-port 35750
+      --livereload-port 34202
