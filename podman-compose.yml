@@ -2,7 +2,7 @@
 services:
   jekyll:
     image: bretfisher/jekyll-serve
-    container_name: icfpp22
+    container_name: icfpp
     working_dir: /srv-jekyll
     volumes:
       - .:/srv-jekyll
