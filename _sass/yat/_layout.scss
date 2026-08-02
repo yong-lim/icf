@@ -204,6 +204,7 @@ html {
   background-color: $footer-background-color;
   text-align: left;
   transition: background-color 0.2s;
+  font-size: $small-font-size;
 
   .site-footer-inner {
     transition: border-top 0.2s;
