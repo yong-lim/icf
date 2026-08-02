@@ -92,7 +92,7 @@ html {
 
   .site-header-inner {
     position: relative;
-      color: #24678d;
+    color: #24678d;
   }
 }
 
@@ -116,7 +116,7 @@ html {
 
     .site-favicon {
       display: inline-block;
-      height: calc($header-height / 1.5);
+      height: math.div($header-height, 1.5);
       margin-right: 5px;
       padding-bottom: 19px;
     }
@@ -215,7 +215,7 @@ html {
     color: $a-color;
 
     &:hover {
-      color: color.adjust($a-color, $lightness: 10%);
+      color: color.scale($a-color, $lightness: 10%);
     }
   }
 }
@@ -297,30 +297,7 @@ html {
 
     a {
       text-decoration: none;
-
-      &:after {
-        content: 'NEW';
-        position: absolute;
-        margin-left: 8px;
-        margin-top: 3px;
-        padding: 0px 3px;
-        background-color: $brand-color;
-        color: #fff;
-        font-size: 10px;
-        font-weight: 600;
-        border-radius: 2px;
-      }
-
-      &:visited:after {
-        background-color: #fff;
-      }
     }
-  }
-
-  .post-meta {
-    font-size: $base-font-size;
-    color: $grey-color;
-    margin-bottom: $spacing-unit * 0.5;
   }
 
   .post-link {
@@ -329,10 +306,66 @@ html {
     color: #333;
   }
 
+  .post-meta {
+    color: $grey-color;
+    font-size: $base-font-size;
+    margin-bottom: $spacing-unit * 0.5;
+  }
+
   .post-excerpt {
-    color: #777;
+    display: flex;
+    position: relative;
+    gap: 15px;
+    margin-bottom: 15px;
+
+    .post-image > *:first-child {
+      flex: 0 1 38.2%;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center center;
+      overflow: hidden;
+      transition: 0.2s all ease-in-out;
+    }
+  }
+
+  .post-list {
+    &.none-image-style .post-item .post-excerpt .post-image {
+      display: none;
+    }
+
+    &.left-image-style .post-item .post-excerpt {
+      flex-direction: row;
+    }
+
+    &.right-image-style .post-item .post-excerpt {
+      flex-direction: row-reverse;
+    }
+
+    &.post-list.top-image-style .post-item .post-excerpt {
+      flex-direction: column;
+    }
+
+    &.z-image-style .post-item:nth-child(even) .post-excerpt {
+      flex-direction: row-reverse;
+    }
+
+    &.z-reverse-image-style .post-item:nth-child(odd) .post-excerpt {
+      flex-direction: row-reverse;
+    }
+
+    .post-item .post-excerpt {
+      @include media-query($on-laptop) {
+        flex-direction: column !important;
+      }
+    }
+  }
+
+  .post-text {
+    color: $grey-color;
     word-break: break-word;
     overflow-wrap: break-word;
+    flex: 1;
   }
 
   .post-tags .post-tag {
@@ -405,11 +438,12 @@ html {
     }
 
     .post-subtitle {
-      font-weight: lighter;
+      font-weight: 300;
     }
 
     .post-meta {
-      color: #808080;
+      color: $grey-color;
+      padding-bottom: 15px;
     }
   }
 
@@ -450,13 +484,14 @@ html {
 
     img:not(.emoji), svg, iframe {
       display: block;
+      max-height: 50vh;
     }
 
     h2, h3, h4, h5, h6 {
       margin: 60px 0 19px;
     }
 
-    p, hr {
+    p {
       margin-bottom: 24px;
     }
 
@@ -464,6 +499,7 @@ html {
       height: 1px;
       background-color: #ebebeb;
       border: none;
+      margin: 60px 0;
     }
   }
 
@@ -476,33 +512,14 @@ html {
 
     ul {
       margin-left: 15px;
-      .post-link {
-        @include relative-font-size(1.075);
-      }
+    }
 
-      a {
-        color: #666;
+    .post-link {
+      @include relative-font-size(1.075);
+      color: $grey-color;
 
-        &:hover {
-          color: #333;
-        }
-
-        &:after {
-          content: 'NEW';
-          position: absolute;
-          margin-left: 8px;
-          margin-top: 3px;
-          padding: 0px 3px;
-          background-color: $brand-color;
-          color: #fff;
-          font-size: 10px;
-          font-weight: 600;
-          border-radius: 2px;
-        }
-
-        &:visited:after {
-          background-color: #fff;
-        }
+      &:hover {
+        color: darken($grey-color, 50%);
       }
     }
   }
@@ -512,7 +529,6 @@ html {
   padding-top: 25px;
 }
 
-
 /**
  * Posts misc
  */
@@ -521,12 +537,20 @@ html {
   justify-content: space-between;
   margin: 72px 0 59px;
   padding: 31px 0 0;
+  gap: 36px;
 
   a {
     @include relative-font-size(1.125);
-    line-height: 15px;
-    color: #666;
-    max-width: 50%;
+    color: $grey-color;
+    max-width: 45%;
+    display: flex;
+    align-items: center;
+
+    * {
+        overflow: hidden;
+        text-wrap-mode: nowrap;
+        text-overflow: ellipsis;
+    }
   }
 
   .previous:before {
@@ -565,11 +589,10 @@ html {
   .archives-time {
     @include relative-font-size(1.5);
 
-    margin-bottom: 8px;
-
     &:not(:first-child) {
       margin-top: 18px;
     }
+    margin-bottom: 8px;
   }
 
   .post-meta {
@@ -663,6 +686,7 @@ html {
 
     .post-meta {
       color: #ffffffcc;
+      padding-bottom: 1em;
     }
 
     .left-vsplit:before {
@@ -692,7 +716,7 @@ html {
   }
 
   @include media-query($on-palm) {
-    height: calc($banner-height / 1.5);
+    height: divide($banner-height, 1.5);
   }
 }
 
@@ -700,33 +724,33 @@ html {
 /**
  * Layout and sidebar
  */
-.framework {
-  @extend %flex;
+ .framework {
+   @extend %flex;
 
-  .main {
-    @extend %flex-1;
-  }
-  @include media-query($on-palm) {
-    flex-direction: column;
-  }
+   .main {
+     @extend %flex-1;
+   }
+   @include media-query($on-palm) {
+     flex-direction: column;
+   }
 
-  .sidebar {
-    padding-left: 8px;
-    transition: top 0.2s, display 0.2s;
-    text-align: center;
-    max-width: 25%;
-    margin-right: 15px;
+   .sidebar {
+     padding-left: 8px;
+     transition: top 0.2s, display 0.2s;
+     text-align: center;
+     max-width: 25%;
+     margin-right: 15px;
 
-    @include media-query($on-laptop) {
-      /* yong display: none; */
-      max-width: 40%;
-    }
-    @include media-query($on-palm) {
-      max-width: 100%;
-    }
+     @include media-query($on-laptop) {
+       /* yong display: none; */
+       max-width: 40%;
+     }
+     @include media-query($on-palm) {
+       max-width: 100%;
+     }
 
-  }
-}
+   }
+ }
 
 
 /**
@@ -766,29 +790,10 @@ html {
       margin-left: 5px;
     }
 
-    & {
-      color: #303030;
-    }
+    color: #303030;
 
     &:hover {
       color: #000;
-    }
-
-    &:after {
-      content: 'NEW';
-      position: absolute;
-      margin-left: 8px;
-      margin-top: 3px;
-      padding: 0px 3px;
-      background-color: $brand-color;
-      color: #fff;
-      font-size: 10px;
-      font-weight: 600;
-      border-radius: 2px;
-    }
-
-    &:visited:after {
-      background-color: #fff;
     }
   }
 }
@@ -802,3 +807,74 @@ html {
   background-color: #e3e3e3e3;
   vertical-align: baseline;
 }
+
+/**
+ * Post badge
+ */
+.post-badges {
+  display: inline-block;
+  position: relative;
+  margin-left: 8px;
+  margin-top: 3px;
+  user-select: none;
+}
+
+.pagination .post-badges {
+  bottom: 0.5em;
+}
+
+.post-related .post-badges {
+  bottom: 0.1em;
+}
+
+.page-segments .post-badges {
+  bottom: 0.1em;
+}
+
+.post-badge {
+  display: none;
+  padding: 0px 3px;
+  background-color: $brand-color;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 2px;
+  transition-duration: $base-transition-duration;
+}
+
+.post-badge.badge-new {
+  display: inline-block;
+}
+
+.top-post .post-badges .post-badge.badge-top {
+  display: inline-block;
+}
+
+a:visited .post-badges .post-badge.badge-new {
+  display: none;
+  color: $background-color;
+  background-color: $background-color;
+}
+
+.wsite-button,
+.wsite-button .wsite-button-inner,
+.wsite-editor .wsite-button,
+.wsite-editor .wsite-button .wsite-button-inner {
+  color: white;
+  background-image: none !important;
+  background-color: #a08484;
+
+}
+
+.wsite-button,
+.wsite-editor .wsite-button {
+  padding: 8px 20px !important;
+}
+ .wsite-button-large, .wsite-editor .wsite-button-large { padding: 10px 25px !important; }
+ .wsite-button .wsite-button-inner, .wsite-editor .wsite-button .wsite-button-inner { background-color: inherit; height: auto !important; line-height: 1.25 !important; padding: 0 !important; }
+ .wsite-button-highlight, .wsite-editor .wsite-button-highlight { background-color: #a08484; }
+ .wsite-button-highlight:hover, .wsite-editor .wsite-button-highlight:hover { background-color: #bd9e9e; }
+ .wsite-button-highlight:active, .wsite-editor .wsite-button-highlight:active { background-color: #44818e; }
+ .wsite-button-normal, .wsite-editor .wsite-button-normal { background-color: #484848; }
+ .wsite-button-normal:hover, .wsite-editor.wsite-button-normal:hover { background-color: #616161; }
+ .wsite-button-normal:active, .wsite-editor .wsite-button-normal:active { background-color: #303030; }
