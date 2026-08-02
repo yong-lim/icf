@@ -520,7 +520,7 @@ html {
       color: $grey-color;
 
       &:hover {
-        color: darken($grey-color, 50%);
+        color: color.scale($grey-color, $lightness: -50%);
       }
     }
   }
